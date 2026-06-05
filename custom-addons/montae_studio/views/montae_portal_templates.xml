@@ -2,11 +2,14 @@
 <odoo>
     <!-- ── Home / Landing ──────────────────────────────────────────────── -->
     <template id="portal_home" name="Montae Studio Home">
-        <t t-call="web.layout">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
             <t t-set="head_studio">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
                 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
             </t>
+            <t t-set="additional_title">Montae Studio</t>
             <t t-set="head" t-value="head_studio"/>
             <body class="montae-portal">
                 <header class="montae-header">
@@ -58,11 +61,14 @@
 
     <!-- ── Booking ──────────────────────────────────────────────────────── -->
     <template id="portal_book" name="Montae Book Session">
-        <t t-call="web.layout">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
             <t t-set="head_studio">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
                 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
             </t>
+            <t t-set="additional_title">Book a Session — Montae Studio</t>
             <t t-set="head" t-value="head_studio"/>
             <body class="montae-portal">
                 <header class="montae-header">
@@ -118,11 +124,14 @@
 
     <!-- ── Account ──────────────────────────────────────────────────────── -->
     <template id="portal_account" name="Montae Account">
-        <t t-call="web.layout">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
             <t t-set="head_studio">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
                 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
             </t>
+            <t t-set="additional_title">My Account — Montae Studio</t>
             <t t-set="head" t-value="head_studio"/>
             <body class="montae-portal">
                 <header class="montae-header">

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="kiosk_home" name="Montae Kiosk">
-        <t t-call="web.layout">
+        <t t-call="website.layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
             <t t-set="head_kiosk">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_kiosk.css"/>
                 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
             </t>
+            <t t-set="additional_title">Check In — Montae Studio</t>
             <t t-set="head" t-value="head_kiosk"/>
             <body class="montae-kiosk">
                 <div class="kiosk-wrap">

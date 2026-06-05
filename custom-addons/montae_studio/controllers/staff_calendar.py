@@ -12,7 +12,7 @@ STAFF_GROUP = 'montae_studio.group_montae_staff'
 
 class MontaeStaffCalendar(http.Controller):
 
-    @http.route('/studio/staff/calendar', auth='user', website=True)
+    @http.route('/studio/staff/calendar', auth='user', website=True, sitemap=False)
     def staff_calendar(self, date=None, **kwargs):
         if not request.env.user.has_group(STAFF_GROUP):
             return request.redirect('/studio')

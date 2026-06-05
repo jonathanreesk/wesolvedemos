@@ -16,7 +16,17 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -e
             cd /odoo19
+            git fetch origin main
             git pull origin main
-            sudo systemctl restart odoo19
+            echo "Code updated — upgrading montae_studio module..."
+            sudo systemctl stop odoo19
+            sudo -u odoo /odoo19/venv/bin/python /odoo19/odoo-bin \
+              -c /etc/odoo/odoo.conf \
+              -d ${{ secrets.ODOO_DB }} \
+              -u montae_studio \
+              --stop-after-init \
+              --no-http
+            sudo systemctl start odoo19
             echo "Deploy complete"
