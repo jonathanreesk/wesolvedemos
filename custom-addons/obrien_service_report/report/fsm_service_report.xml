@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="obrien_fsm_service_report_template" name="O'Brien Field Service Report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="task">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="font-family:Arial,sans-serif;font-size:13px;color:#1a1a1a;padding:5px 15px;">
+
+                        <!-- HEADER -->
+                        <table width="100%" style="border-collapse:collapse;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #333;">
+                            <tr>
+                                <td style="width:15%;vertical-align:middle;">
+                                    <t t-if="task.company_id.logo">
+                                        <img t-att-src="image_data_uri(task.company_id.logo)" style="width:80px;height:auto;display:block;"/>
+                                    </t>
+                                </td>
+                                <td style="width:45%;vertical-align:middle;padding-left:14px;">
+                                    <div style="font-size:15px;font-weight:700;color:#1a1a1a;">O'Brien Analytical Services</div>
+                                    <div style="font-size:11px;color:#555;margin-top:4px;">Agilent&#174; Authorized Service Provider | ISO 17025 Compliant</div>
+                                    <div style="font-size:11px;color:#555;">HPLC · LCMS · GC · GCMS · UV-Vis · ICPMS</div>
+                                    <div style="font-size:11px;color:#777;margin-top:4px;">service@obrienanalytical.com | (555) 217-4100</div>
+                                </td>
+                                <td style="width:40%;vertical-align:middle;text-align:right;">
+                                    <div style="font-size:28px;font-weight:700;color:#333;letter-spacing:2px;line-height:1.1;">FIELD SERVICE<br/>REPORT</div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- REPORT + CUSTOMER -->
+                        <table width="100%" style="border-collapse:collapse;margin-bottom:18px;">
+                            <tr>
+                                <td style="width:48%;vertical-align:top;padding-right:20px;">
+                                    <div style="font-size:9px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #999;padding-bottom:3px;margin-bottom:10px;">Report Details</div>
+                                    <table style="font-size:13px;width:100%;border-collapse:collapse;">
+                                        <tr><td style="color:#777;padding:5px 0;width:38%;">Report No.</td><td style="font-weight:600;">OBS-<t t-esc="task.id"/>-<t t-esc="(task.write_date).strftime('%Y') if task.write_date else '2026'"/></td></tr>
+                                        <tr><td style="color:#777;padding:5px 0;">Date</td><td><t t-esc="(task.date_deadline or task.write_date).strftime('%B %d, %Y') if (task.date_deadline or task.write_date) else 'N/A'"/></td></tr>
+                                        <tr><td style="color:#777;padding:5px 0;">Work Order</td><td><t t-esc="task.name"/></td></tr>
+                                        <tr><td style="color:#777;padding:5px 0;">Status</td><td><span style="background:#444;color:white;padding:2px 9px;border-radius:2px;font-size:11px;"><t t-esc="task.stage_id.name if task.stage_id else 'N/A'"/></span></td></tr>
+                                        <tr t-if="task.user_ids"><td style="color:#777;padding:5px 0;">Engineer</td><td style="font-weight:600;"><t t-foreach="task.user_ids" t-as="u"><t t-esc="u.name"/></t></td></tr>
+                                    </table>
+                                </td>
+                                <td style="width:4%;"></td>
+                                <td style="width:48%;vertical-align:top;padding-left:20px;border-left:1px solid #ccc;">
+                                    <div style="font-size:9px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #999;padding-bottom:3px;margin-bottom:10px;">Customer</div>
+                                    <table style="font-size:13px;width:100%;border-collapse:collapse;">
+                                        <tr><td style="color:#777;padding:5px 0;width:38%;">Company</td><td style="font-weight:700;font-size:14px;"><t t-esc="task.partner_id.name if task.partner_id else 'N/A'"/></td></tr>
+                                        <tr t-if="task.partner_id.street"><td style="color:#777;padding:5px 0;">Address</td><td><t t-esc="task.partner_id.street"/>, <t t-esc="task.partner_id.city"/> <t t-esc="task.partner_id.zip"/></td></tr>
+                                        <tr t-if="task.partner_id.phone"><td style="color:#777;padding:5px 0;">Phone</td><td><t t-esc="task.partner_id.phone"/></td></tr>
+                                        <tr t-if="task.partner_id.email"><td style="color:#777;padding:5px 0;">Email</td><td><t t-esc="task.partner_id.email"/></td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- WORK PERFORMED -->
+                        <div style="margin-bottom:18px;">
+                            <div style="font-size:9px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #999;padding-bottom:3px;margin-bottom:10px;">Work Performed</div>
+                            <div style="font-size:13px;line-height:1.8;color:#333;padding:14px 16px;background:#f5f5f5;min-height:55px;">
+                                <t t-if="task.description"><t t-esc="task.description"/></t>
+                                <t t-else=""><span style="color:#999;font-style:italic;">Service performed per standard protocol. Refer to time log for details.</span></t>
+                            </div>
+                        </div>
+
+                        <!-- TIME LOG -->
+                        <t t-if="task.timesheet_ids">
+                            <div style="margin-bottom:18px;">
+                                <div style="font-size:9px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #999;padding-bottom:3px;margin-bottom:10px;">Time Log</div>
+                                <table width="100%" style="border-collapse:collapse;font-size:12px;">
+                                    <thead>
+                                        <tr style="background:#e8e8e8;border-bottom:1px solid #999;">
+                                            <th style="padding:8px 10px;text-align:left;width:13%;font-weight:600;">Date</th>
+                                            <th style="padding:8px 10px;text-align:left;width:18%;font-weight:600;">Engineer</th>
+                                            <th style="padding:8px 10px;text-align:left;font-weight:600;">Description</th>
+                                            <th style="padding:8px 10px;text-align:right;width:8%;font-weight:600;">Hrs</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="task.timesheet_ids" t-as="ts">
+                                            <tr style="border-bottom:1px solid #eeeeee;">
+                                                <td style="padding:8px 10px;"><t t-esc="ts.date.strftime('%m/%d/%Y') if ts.date else ''"/></td>
+                                                <td style="padding:8px 10px;"><t t-esc="ts.employee_id.name if ts.employee_id else ts.user_id.name"/></td>
+                                                <td style="padding:8px 10px;"><t t-esc="ts.name"/></td>
+                                                <td style="padding:8px 10px;text-align:right;font-weight:600;"><t t-esc="'%.1f' % ts.unit_amount"/></td>
+                                            </tr>
+                                        </t>
+                                        <tr style="border-top:1px solid #999;font-weight:700;background:#f5f5f5;">
+                                            <td colspan="3" style="padding:8px 10px;text-align:right;color:#333;">Total Hours:</td>
+                                            <td style="padding:8px 10px;text-align:right;"><t t-esc="'%.1f' % sum(task.timesheet_ids.mapped('unit_amount'))"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+
+                        <!-- COMPLIANCE -->
+                        <div style="margin-bottom:22px;">
+                            <div style="font-size:9px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #999;padding-bottom:3px;margin-bottom:10px;">Compliance &amp; Certification</div>
+                            <table width="100%" style="border-collapse:collapse;font-size:12px;border:1px solid #ddd;">
+                                <tr>
+                                    <td style="padding:13px 14px;text-align:center;border-right:1px solid #ddd;width:25%;"><div style="color:#888;font-size:9px;margin-bottom:5px;text-transform:uppercase;">Service Standard</div><div style="font-weight:700;font-size:15px;">ISO 17025</div></td>
+                                    <td style="padding:13px 14px;text-align:center;border-right:1px solid #ddd;width:25%;background:#fafafa;"><div style="color:#888;font-size:9px;margin-bottom:5px;text-transform:uppercase;">Regulatory</div><div style="font-weight:700;">FDA 21 CFR Part 11</div></td>
+                                    <td style="padding:13px 14px;text-align:center;border-right:1px solid #ddd;width:25%;"><div style="color:#888;font-size:9px;margin-bottom:5px;text-transform:uppercase;">Certification</div><div style="font-weight:700;">Agilent&#174; Factory Trained</div></td>
+                                    <td style="padding:13px 14px;text-align:center;width:25%;background:#fafafa;"><div style="color:#888;font-size:9px;margin-bottom:5px;text-transform:uppercase;">Certificate No.</div><div style="font-weight:700;font-size:15px;">OBS-<t t-esc="task.id"/>-2026</div></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- SIGNATURES -->
+                        <div style="margin-bottom:15px;">
+                            <div style="font-size:9px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #999;padding-bottom:3px;margin-bottom:20px;">Authorization &amp; Sign-Off</div>
+                            <table width="100%">
+                                <tr>
+                                    <td style="width:45%;"><div style="border-bottom:1px solid #333;height:48px;margin-bottom:6px;"></div><div style="font-size:10px;color:#777;text-transform:uppercase;letter-spacing:0.5px;">Field Engineer Signature</div><div style="font-size:12px;font-weight:600;margin-top:3px;"><t t-foreach="task.user_ids" t-as="u"><t t-esc="u.name"/></t> | O'Brien Analytical Services</div></td>
+                                    <td style="width:10%;"></td>
+                                    <td style="width:45%;"><div style="border-bottom:1px solid #333;height:48px;margin-bottom:6px;"></div><div style="font-size:10px;color:#777;text-transform:uppercase;letter-spacing:0.5px;">Customer Authorized Signature</div><div style="font-size:12px;font-weight:600;margin-top:3px;"><t t-esc="task.partner_id.name if task.partner_id else ''"/></div></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top:16px;"><div style="border-bottom:1px solid #bbb;height:32px;margin-bottom:5px;"></div><div style="font-size:10px;color:#777;text-transform:uppercase;letter-spacing:0.5px;">Date</div></td>
+                                    <td></td>
+                                    <td style="padding-top:16px;"><div style="border-bottom:1px solid #bbb;height:32px;margin-bottom:5px;"></div><div style="font-size:10px;color:#777;text-transform:uppercase;letter-spacing:0.5px;">Date</div></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div style="border-top:1px solid #ccc;padding-top:8px;margin-top:10px;text-align:center;">
+                            <div style="font-size:10px;color:#999;line-height:1.6;">O'Brien Analytical Services · Founded 2011 · Agilent&#174; Authorized Service Provider · ISO 17025 Compliant · HPLC · LCMS · GC · GCMS · UV-Vis · ICPMS · Metrohm IC</div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
