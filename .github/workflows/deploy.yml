@@ -16,6 +16,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           request_pty: true
+          command_timeout: 30m
           script: |
             set -e
             rm -rf ~/montae_studio_tmp
