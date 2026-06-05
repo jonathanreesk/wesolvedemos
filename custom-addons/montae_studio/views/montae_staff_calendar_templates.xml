@@ -118,7 +118,7 @@
                         <t t-foreach="resources" t-as="res">
                         {
                             id: <t t-out="res.id"/>,
-                            name: "<t t-out="res.name.replace('\"', '&quot;')"/>",
+                            name: "<t t-out="res.name"/>",
                             open_time: <t t-out="res.open_time"/>,
                             close_time: <t t-out="res.close_time"/>
                         }<t t-if="not res_last">,</t>
