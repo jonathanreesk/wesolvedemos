@@ -50,7 +50,9 @@
     grid.innerHTML = '';
 
     const cols = resources.length + 1; // +1 for time label col
+    const totalSlotRows = (closeHour - openHour) * (60 / SLOT_H);
     grid.style.gridTemplateColumns = '54px ' + resources.map(() => '1fr').join(' ');
+    grid.style.gridTemplateRows = 'auto ' + `${SLOT_PX}px `.repeat(totalSlotRows).trim();
 
     // Header row
     const timeHead = el('div', 'staff-col-header staff-col-header--time', '');
