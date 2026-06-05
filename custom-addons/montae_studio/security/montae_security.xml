@@ -13,6 +13,5 @@
     <record id="group_montae_admin" model="res.groups">
         <field name="name">Montae Studio / Administrator</field>
         <field name="implied_ids" eval="[(4, ref('group_montae_staff'))]"/>
-        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
     </record>
 </odoo>
