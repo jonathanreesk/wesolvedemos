@@ -1,6 +1,6 @@
 {
     'name': 'Montae Studio',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Services/Studio',
     'summary': 'Membership, booking, kiosk and portal for Montae wellness studio',
     'author': 'WeSolve Digital',
