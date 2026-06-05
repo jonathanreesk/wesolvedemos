@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_montae_plan_staff,montae.plan staff,model_montae_plan,group_montae_staff,1,0,0,0
+access_montae_plan_admin,montae.plan admin,model_montae_plan,group_montae_admin,1,1,1,1
+access_montae_subscription_staff,montae.subscription staff,model_montae_subscription,group_montae_staff,1,1,0,0
+access_montae_subscription_admin,montae.subscription admin,model_montae_subscription,group_montae_admin,1,1,1,1
+access_montae_resource_staff,montae.resource staff,model_montae_resource,group_montae_staff,1,0,0,0
+access_montae_resource_admin,montae.resource admin,model_montae_resource,group_montae_admin,1,1,1,1
+access_montae_booking_staff,montae.booking staff,model_montae_booking,group_montae_staff,1,1,1,0
+access_montae_booking_admin,montae.booking admin,model_montae_booking,group_montae_admin,1,1,1,1
+access_montae_addon_staff,montae.addon staff,model_montae_addon,group_montae_staff,1,0,0,0
+access_montae_addon_admin,montae.addon admin,model_montae_addon,group_montae_admin,1,1,1,1
+access_montae_credit_log_staff,montae.credit.log staff,model_montae_credit_log,group_montae_staff,1,0,0,0
+access_montae_credit_log_admin,montae.credit.log admin,model_montae_credit_log,group_montae_admin,1,1,1,1

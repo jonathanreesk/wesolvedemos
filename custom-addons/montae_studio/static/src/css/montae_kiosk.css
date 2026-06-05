@@ -1,0 +1,111 @@
+/* ─── Montae Studio — Isolated Kiosk Styles ────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --clr-bg:     #0d0e0f;
+  --clr-surface:#161718;
+  --clr-gold:   #c9a96e;
+  --clr-text:   #e8e4de;
+  --clr-muted:  #7a7673;
+  --clr-success:#2ecc71;
+  --font-heading:'Cormorant Garamond', Georgia, serif;
+  --font-body:  'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.montae-kiosk {
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kiosk-wrap {
+  width: 100%;
+  max-width: 520px;
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.kiosk-logo {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--clr-gold);
+  letter-spacing: .2em;
+}
+.kiosk-heading { font-family: var(--font-heading); font-size: 2.8rem; font-weight: 400; }
+.kiosk-sub { color: var(--clr-muted); font-size: 1rem; }
+
+.kiosk-search {
+  display: flex;
+  gap: .5rem;
+  width: 100%;
+  max-width: 400px;
+}
+.kiosk-input {
+  flex: 1;
+  background: var(--clr-surface);
+  color: var(--clr-text);
+  border: 1px solid rgba(201,169,110,.25);
+  border-radius: 6px;
+  padding: .75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.kiosk-input:focus { outline: none; border-color: var(--clr-gold); }
+
+.kiosk-btn {
+  background: var(--clr-gold);
+  color: var(--clr-bg);
+  border: none;
+  border-radius: 6px;
+  padding: .75rem 1.2rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  transition: background .2s;
+}
+.kiosk-btn:hover { background: #e8cfa0; }
+.kiosk-btn--ghost {
+  background: transparent;
+  color: var(--clr-muted);
+  border: 1px solid rgba(201,169,110,.25);
+}
+.kiosk-btn--ghost:hover { color: var(--clr-gold); border-color: var(--clr-gold); }
+
+.kiosk-results {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.kiosk-result-item {
+  background: var(--clr-surface);
+  border: 1px solid rgba(201,169,110,.15);
+  border-radius: 8px;
+  padding: .9rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s;
+}
+.kiosk-result-item:hover { border-color: var(--clr-gold); }
+.kiosk-result-name { font-weight: 500; }
+.kiosk-result-details { font-size: .8rem; color: var(--clr-muted); margin-top: .25rem; }
+
+.kiosk-confirm { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.kiosk-check-icon { width: 56px; height: 56px; color: var(--clr-success); }
+.kiosk-confirm h2 { font-family: var(--font-heading); font-size: 2rem; }
+.kiosk-confirm p  { color: var(--clr-muted); }

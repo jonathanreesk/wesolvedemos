@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ── Home / Landing ──────────────────────────────────────────────── -->
+    <template id="portal_home" name="Montae Studio Home">
+        <t t-call="web.layout">
+            <t t-set="head_studio">
+                <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
+                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+            </t>
+            <t t-set="head" t-value="head_studio"/>
+            <body class="montae-portal">
+                <header class="montae-header">
+                    <a href="/studio" class="montae-logo">MONTAE</a>
+                    <nav class="montae-nav">
+                        <a href="/studio/book">Book</a>
+                        <a href="/studio/account">Account</a>
+                        <t t-if="not request.env.user._is_public()">
+                            <a href="/web/session/logout">Sign Out</a>
+                        </t>
+                        <t t-else="">
+                            <a href="/web/login">Sign In</a>
+                        </t>
+                    </nav>
+                </header>
+
+                <section class="montae-hero">
+                    <h1>Premium Wellness Studio</h1>
+                    <p>Infrared therapy, heat beds, and personalised sessions.</p>
+                    <a href="/studio/book" class="montae-btn montae-btn--primary">Book a Session</a>
+                </section>
+
+                <section class="montae-plans" id="plans">
+                    <h2>Membership Plans</h2>
+                    <div class="montae-plan-grid">
+                        <t t-foreach="plans" t-as="plan">
+                            <div class="montae-plan-card">
+                                <h3 t-esc="plan.name"/>
+                                <p class="montae-plan-price">
+                                    $<span t-esc="int(plan.price)"/><small>/<t t-esc="plan.billing_period"/></small>
+                                </p>
+                                <p t-esc="plan.description"/>
+                                <p class="montae-plan-credits" t-if="plan.session_credits > 0">
+                                    <t t-esc="plan.session_credits"/> sessions/month
+                                </p>
+                                <p class="montae-plan-credits" t-else="">Unlimited sessions</p>
+                                <button class="montae-btn montae-btn--primary js-subscribe"
+                                        t-att-data-plan-id="plan.id">Join Now</button>
+                            </div>
+                        </t>
+                    </div>
+                </section>
+
+                <script src="/montae_studio/static/src/js/montae_portal.js"></script>
+                <script>lucide.createIcons();</script>
+            </body>
+        </t>
+    </template>
+
+    <!-- ── Booking ──────────────────────────────────────────────────────── -->
+    <template id="portal_book" name="Montae Book Session">
+        <t t-call="web.layout">
+            <t t-set="head_studio">
+                <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
+                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+            </t>
+            <t t-set="head" t-value="head_studio"/>
+            <body class="montae-portal">
+                <header class="montae-header">
+                    <a href="/studio" class="montae-logo">MONTAE</a>
+                    <nav class="montae-nav">
+                        <a href="/studio/account">Account</a>
+                        <a href="/web/session/logout">Sign Out</a>
+                    </nav>
+                </header>
+
+                <main class="montae-container montae-book">
+                    <h1>Book a Session</h1>
+
+                    <div class="montae-book-form">
+                        <label>Resource</label>
+                        <select id="resource-select" class="montae-select">
+                            <t t-foreach="resources" t-as="res">
+                                <option t-att-value="res.id" t-esc="res.name"/>
+                            </t>
+                        </select>
+
+                        <label>Session Type</label>
+                        <input id="session-type" class="montae-input" type="text" placeholder="e.g. Infrared 60min"/>
+
+                        <label>Date</label>
+                        <input id="booking-date" class="montae-input" type="date"
+                               t-att-value="preselect_date"/>
+
+                        <label>Time</label>
+                        <div id="slot-grid" class="montae-slot-grid">
+                            <p class="montae-muted">Select a resource and date to see available slots.</p>
+                        </div>
+
+                        <label>Duration (minutes)</label>
+                        <select id="duration-select" class="montae-select">
+                            <option value="30">30 min</option>
+                            <option value="60" selected="1">60 min</option>
+                            <option value="90">90 min</option>
+                        </select>
+
+                        <button id="confirm-booking" class="montae-btn montae-btn--primary" disabled="1">
+                            Confirm Booking
+                        </button>
+                        <div id="booking-result" class="montae-booking-result" style="display:none;"/>
+                    </div>
+                </main>
+
+                <script src="/montae_studio/static/src/js/montae_portal.js"></script>
+                <script>lucide.createIcons();</script>
+            </body>
+        </t>
+    </template>
+
+    <!-- ── Account ──────────────────────────────────────────────────────── -->
+    <template id="portal_account" name="Montae Account">
+        <t t-call="web.layout">
+            <t t-set="head_studio">
+                <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
+                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+            </t>
+            <t t-set="head" t-value="head_studio"/>
+            <body class="montae-portal">
+                <header class="montae-header">
+                    <a href="/studio" class="montae-logo">MONTAE</a>
+                    <nav class="montae-nav">
+                        <a href="/studio/book">Book</a>
+                        <a href="/web/session/logout">Sign Out</a>
+                    </nav>
+                </header>
+
+                <main class="montae-container">
+                    <h1>My Account</h1>
+                    <p class="montae-welcome">Welcome back, <t t-esc="partner.name"/></p>
+
+                    <!-- Tab navigation -->
+                    <div class="montae-tabs">
+                        <a t-attf-href="/studio/account?tab=subscription"
+                           t-attf-class="montae-tab#{' montae-tab--active' if active_tab == 'subscription' else ''}">
+                            Subscription
+                        </a>
+                        <a t-attf-href="/studio/account?tab=calendar"
+                           t-attf-class="montae-tab#{' montae-tab--active' if active_tab == 'calendar' else ''}">
+                            Calendar
+                        </a>
+                        <a t-attf-href="/studio/account?tab=history"
+                           t-attf-class="montae-tab#{' montae-tab--active' if active_tab == 'history' else ''}">
+                            Session History
+                        </a>
+                        <a t-attf-href="/studio/account?tab=billing"
+                           t-attf-class="montae-tab#{' montae-tab--active' if active_tab == 'billing' else ''}">
+                            Billing
+                        </a>
+                        <a t-attf-href="/studio/account?tab=profile"
+                           t-attf-class="montae-tab#{' montae-tab--active' if active_tab == 'profile' else ''}">
+                            Profile
+                        </a>
+                    </div>
+
+                    <!-- Subscription tab -->
+                    <div t-if="active_tab == 'subscription'" class="montae-tab-content">
+                        <t t-if="subscription">
+                            <div class="montae-subscription-card">
+                                <h2 t-esc="subscription.plan_id.name"/>
+                                <span t-attf-class="montae-badge montae-badge--#{subscription.state}"
+                                      t-esc="subscription.state.title()"/>
+                                <p>Credits remaining: <strong t-esc="subscription.credit_balance"/></p>
+                                <p>Next billing: <t t-esc="subscription.next_billing_date"/></p>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <p class="montae-muted">You don't have an active membership.</p>
+                            <div class="montae-plan-grid">
+                                <t t-foreach="plans" t-as="plan">
+                                    <div class="montae-plan-card">
+                                        <h3 t-esc="plan.name"/>
+                                        <p class="montae-plan-price">$<t t-esc="int(plan.price)"/>/<t t-esc="plan.billing_period"/></p>
+                                        <button class="montae-btn montae-btn--primary js-subscribe"
+                                                t-att-data-plan-id="plan.id">Subscribe</button>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+
+                    <!-- Calendar tab -->
+                    <div t-if="active_tab == 'calendar'" class="montae-tab-content">
+                        <div id="montae-client-calendar" class="montae-calendar-wrap">
+                            <div class="montae-cal-toolbar">
+                                <button id="cal-prev" class="montae-btn montae-btn--ghost">
+                                    <i data-lucide="chevron-left"></i>
+                                </button>
+                                <h2 id="cal-title" class="montae-cal-title"></h2>
+                                <button id="cal-next" class="montae-btn montae-btn--ghost">
+                                    <i data-lucide="chevron-right"></i>
+                                </button>
+                                <div class="montae-cal-view-toggle">
+                                    <button id="cal-view-month" class="montae-btn montae-btn--ghost montae-btn--active">Month</button>
+                                    <button id="cal-view-week" class="montae-btn montae-btn--ghost">Week</button>
+                                </div>
+                            </div>
+                            <div id="cal-grid" class="montae-cal-grid"></div>
+                        </div>
+
+                        <!-- Booking popover -->
+                        <div id="cal-popover" class="montae-cal-popover" style="display:none;">
+                            <button id="cal-popover-close" class="montae-popover-close">
+                                <i data-lucide="x"></i>
+                            </button>
+                            <h3 id="pop-session"></h3>
+                            <p id="pop-time"></p>
+                            <p id="pop-resource"></p>
+                            <span id="pop-status" class="montae-badge"></span>
+                            <button id="pop-cancel" class="montae-btn montae-btn--danger" style="display:none;">
+                                Cancel Booking
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- History tab -->
+                    <div t-if="active_tab == 'history'" class="montae-tab-content">
+                        <table class="montae-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Session</th>
+                                    <th>Resource</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="bookings" t-as="b">
+                                    <tr>
+                                        <td t-esc="b.datetime_start.strftime('%d %b %Y %H:%M') if b.datetime_start else ''"/>
+                                        <td t-esc="b.session_type"/>
+                                        <td t-esc="b.resource_id.name"/>
+                                        <td>
+                                            <span t-attf-class="montae-badge montae-badge--#{b.state}"
+                                                  t-esc="b.state.replace('_',' ').title()"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Billing tab -->
+                    <div t-if="active_tab == 'billing'" class="montae-tab-content">
+                        <p class="montae-muted">Billing history is managed through Stripe. Contact the studio for billing enquiries.</p>
+                    </div>
+
+                    <!-- Profile tab -->
+                    <div t-if="active_tab == 'profile'" class="montae-tab-content">
+                        <div class="montae-profile-card">
+                            <p><strong>Name:</strong> <t t-esc="partner.name"/></p>
+                            <p><strong>Email:</strong> <t t-esc="partner.email"/></p>
+                            <p><strong>Phone:</strong> <t t-esc="partner.phone or '—'"/></p>
+                        </div>
+                    </div>
+                </main>
+
+                <script src="/montae_studio/static/src/js/montae_portal.js"></script>
+                <script>lucide.createIcons();</script>
+            </body>
+        </t>
+    </template>
+</odoo>

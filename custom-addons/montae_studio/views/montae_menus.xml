@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_montae_root" name="Montae Studio" sequence="90"/>
+
+    <menuitem id="menu_montae_bookings" name="Bookings"
+              parent="menu_montae_root"
+              action="action_montae_booking"
+              sequence="10"/>
+
+    <menuitem id="menu_montae_subscriptions" name="Subscriptions"
+              parent="menu_montae_root"
+              action="action_montae_subscription"
+              sequence="20"/>
+
+    <menuitem id="menu_montae_plans" name="Plans"
+              parent="menu_montae_root"
+              action="action_montae_plan"
+              sequence="30"/>
+
+    <menuitem id="menu_montae_resources" name="Resources"
+              parent="menu_montae_root"
+              action="action_montae_resource"
+              sequence="40"/>
+
+    <menuitem id="menu_montae_staff_calendar" name="Staff Calendar"
+              parent="menu_montae_root"
+              sequence="50"
+              action="action_montae_staff_calendar_url"/>
+
+    <record id="action_montae_staff_calendar_url" model="ir.actions.act_url">
+        <field name="name">Staff Calendar</field>
+        <field name="url">/studio/staff/calendar</field>
+        <field name="target">self</field>
+    </record>
+</odoo>
