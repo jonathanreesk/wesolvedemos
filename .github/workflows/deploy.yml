@@ -17,14 +17,17 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-            cd /odoo19
-            git fetch origin main
-            git pull origin main
+            cd /odoo19/custom-addons
+            sudo rm -rf montae_studio_tmp
+            sudo git clone https://github.com/jonathanreesk/wesolvedemos.git montae_studio_tmp
+            sudo rm -rf montae_studio
+            sudo cp -r montae_studio_tmp/custom-addons/montae_studio .
+            sudo rm -rf montae_studio_tmp
             echo "Code updated — upgrading montae_studio module..."
             sudo systemctl stop odoo19
-            sudo -u odoo /odoo19/venv/bin/python /odoo19/odoo-bin \
-              -c /etc/odoo/odoo.conf \
-              -d ${{ secrets.ODOO_DB }} \
+            sudo -u odoo /odoo19/odoo-server/env/bin/python3 /odoo19/odoo-server/odoo-bin \
+              -c /etc/odoo19.conf \
+              -d Wesolvedemo \
               -u montae_studio \
               --stop-after-init \
               --no-http
