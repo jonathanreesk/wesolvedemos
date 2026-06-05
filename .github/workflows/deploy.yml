@@ -18,14 +18,12 @@ jobs:
           request_pty: true
           script: |
             set -e
-            # Clone to home dir — administrator owns this, no sudo needed
             rm -rf ~/montae_studio_tmp
             git clone https://github.com/jonathanreesk/wesolvedemos.git ~/montae_studio_tmp
-            # File copy — administrator owns /odoo19/custom-addons after one-time chown
-            rm -rf /odoo19/custom-addons/montae_studio
-            cp -r ~/montae_studio_tmp/custom-addons/montae_studio /odoo19/custom-addons/
+            sudo rm -rf /odoo19/custom-addons/montae_studio
+            sudo cp -r ~/montae_studio_tmp/custom-addons/montae_studio /odoo19/custom-addons/
+            sudo chown -R administrator:administrator /odoo19/custom-addons/montae_studio
             rm -rf ~/montae_studio_tmp
             echo "Code updated — running Odoo upgrade..."
-            # Single sudo call to the deploy helper script
-            sudo -n /usr/local/bin/odoo-deploy
+            sudo /usr/local/bin/odoo-deploy
             echo "Deploy complete"
