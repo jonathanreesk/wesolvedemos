@@ -7,7 +7,7 @@ from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
-STAFF_GROUP = 'montae_studio.group_montae_staff'
+STAFF_GROUP = 'montae_studio.group_montae_staff'  # res.groups external ID
 
 
 class MontaeStaffCalendar(http.Controller):
