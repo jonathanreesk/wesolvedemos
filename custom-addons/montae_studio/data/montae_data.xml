@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Sequences -->
+    <record id="seq_montae_booking" model="ir.sequence">
+        <field name="name">Montae Booking</field>
+        <field name="code">montae.booking</field>
+        <field name="prefix">MB/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <!-- Default membership plans -->
+    <record id="plan_foundersclub" model="montae.plan">
+        <field name="name">Founder's Club</field>
+        <field name="code">founders</field>
+        <field name="description">Unlimited access — founding member rate</field>
+        <field name="price">199.00</field>
+        <field name="billing_period">monthly</field>
+        <field name="session_credits">0</field>
+    </record>
+
+    <record id="plan_essential" model="montae.plan">
+        <field name="name">Essential</field>
+        <field name="code">essential</field>
+        <field name="description">4 sessions per month</field>
+        <field name="price">99.00</field>
+        <field name="billing_period">monthly</field>
+        <field name="session_credits">4</field>
+    </record>
+
+    <record id="plan_premium" model="montae.plan">
+        <field name="name">Premium</field>
+        <field name="code">premium</field>
+        <field name="description">8 sessions per month</field>
+        <field name="price">149.00</field>
+        <field name="billing_period">monthly</field>
+        <field name="session_credits">8</field>
+    </record>
+
+    <!-- Default resources -->
+    <record id="resource_infrared" model="montae.resource">
+        <field name="name">Infrared Station</field>
+        <field name="resource_type">station</field>
+        <field name="capacity">1</field>
+        <field name="open_time">7.0</field>
+        <field name="close_time">19.0</field>
+        <field name="sequence">10</field>
+        <field name="color">1</field>
+    </record>
+
+    <record id="resource_heat_bed" model="montae.resource">
+        <field name="name">Heat Bed</field>
+        <field name="resource_type">station</field>
+        <field name="capacity">1</field>
+        <field name="open_time">7.0</field>
+        <field name="close_time">19.0</field>
+        <field name="sequence">20</field>
+        <field name="color">3</field>
+    </record>
+
+    <record id="resource_montae" model="montae.resource">
+        <field name="name">Montae</field>
+        <field name="resource_type">practitioner</field>
+        <field name="capacity">1</field>
+        <field name="open_time">9.0</field>
+        <field name="close_time">17.0</field>
+        <field name="sequence">30</field>
+        <field name="color">5</field>
+    </record>
+</odoo>

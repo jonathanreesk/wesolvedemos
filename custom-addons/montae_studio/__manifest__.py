@@ -1,0 +1,31 @@
+{
+    'name': 'Montae Studio',
+    'version': '18.0.1.0.0',
+    'category': 'Services/Studio',
+    'summary': 'Membership, booking, kiosk and portal for Montae wellness studio',
+    'author': 'WeSolve Digital',
+    'depends': ['base', 'portal', 'mail', 'product'],
+    'data': [
+        'security/montae_security.xml',
+        'security/ir.model.access.csv',
+        'data/montae_data.xml',
+        'views/montae_backend_views.xml',
+        'views/montae_menus.xml',
+        'views/montae_portal_templates.xml',
+        'views/montae_kiosk_templates.xml',
+        'views/montae_staff_calendar_templates.xml',
+    ],
+    'assets': {
+        'web.assets_frontend': [
+            'montae_studio/static/src/css/montae_portal.css',
+            'montae_studio/static/src/css/montae_kiosk.css',
+            'montae_studio/static/src/css/montae_staff_calendar.css',
+            'montae_studio/static/src/js/montae_portal.js',
+            'montae_studio/static/src/js/montae_kiosk.js',
+            'montae_studio/static/src/js/montae_staff_calendar.js',
+        ],
+    },
+    'installable': True,
+    'application': True,
+    'license': 'LGPL-3',
+}

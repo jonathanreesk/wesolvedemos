@@ -1,0 +1,449 @@
+/* ─── Montae Studio — Portal Design System ─────────────────────────────────
+   Charcoal/Gold palette · Cormorant Garamond headings · DM Sans body
+   ────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --clr-bg:        #111213;
+  --clr-surface:   #1a1b1d;
+  --clr-surface-2: #242527;
+  --clr-gold:      #c9a96e;
+  --clr-gold-light:#e8cfa0;
+  --clr-text:      #e8e4de;
+  --clr-muted:     #7a7673;
+  --clr-danger:    #c0392b;
+  --clr-success:   #2ecc71;
+  --clr-warning:   #f39c12;
+
+  --radius:  6px;
+  --radius-lg: 12px;
+  --shadow:  0 4px 24px rgba(0,0,0,.45);
+
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.montae-portal {
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.montae-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(201,169,110,.15);
+  position: sticky;
+  top: 0;
+  background: var(--clr-bg);
+  z-index: 100;
+}
+.montae-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--clr-gold);
+  text-decoration: none;
+  letter-spacing: .15em;
+}
+.montae-nav { display: flex; gap: 1.5rem; align-items: center; }
+.montae-nav a {
+  color: var(--clr-muted);
+  text-decoration: none;
+  font-size: .875rem;
+  transition: color .2s;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+.montae-nav a:hover,
+.montae-nav--active { color: var(--clr-gold) !important; }
+
+/* ── Container ───────────────────────────────────────────────────────────── */
+.montae-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--clr-text);
+}
+h1 { font-size: 2.4rem; margin-bottom: .75rem; }
+h2 { font-size: 1.8rem; margin-bottom: .5rem; }
+h3 { font-size: 1.3rem; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.montae-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .55rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: .875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.montae-btn--primary {
+  background: var(--clr-gold);
+  color: var(--clr-bg);
+  border-color: var(--clr-gold);
+}
+.montae-btn--primary:hover { background: var(--clr-gold-light); border-color: var(--clr-gold-light); }
+.montae-btn--ghost {
+  background: transparent;
+  color: var(--clr-muted);
+  border-color: rgba(201,169,110,.3);
+}
+.montae-btn--ghost:hover { color: var(--clr-gold); border-color: var(--clr-gold); }
+.montae-btn--danger {
+  background: transparent;
+  color: var(--clr-danger);
+  border-color: var(--clr-danger);
+}
+.montae-btn--danger:hover { background: var(--clr-danger); color: #fff; }
+.montae-btn--active {
+  color: var(--clr-gold) !important;
+  border-color: var(--clr-gold) !important;
+}
+.montae-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ── Form controls ───────────────────────────────────────────────────────── */
+.montae-input,
+.montae-select {
+  width: 100%;
+  background: var(--clr-surface-2);
+  color: var(--clr-text);
+  border: 1px solid rgba(201,169,110,.2);
+  border-radius: var(--radius);
+  padding: .6rem .85rem;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  transition: border-color .2s;
+}
+.montae-input:focus,
+.montae-select:focus {
+  outline: none;
+  border-color: var(--clr-gold);
+}
+label {
+  display: block;
+  font-size: .8rem;
+  color: var(--clr-muted);
+  margin: 1rem 0 .35rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.montae-hero {
+  text-align: center;
+  padding: 6rem 1.5rem 5rem;
+}
+.montae-hero h1 { font-size: 3.5rem; color: var(--clr-gold); }
+.montae-hero p  { font-size: 1.1rem; color: var(--clr-muted); margin: 1rem 0 2rem; }
+
+/* ── Plans ───────────────────────────────────────────────────────────────── */
+.montae-plans { padding: 4rem 1.5rem; text-align: center; }
+.montae-plans h2 { font-size: 2.2rem; margin-bottom: 2.5rem; }
+.montae-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.montae-plan-card {
+  background: var(--clr-surface);
+  border: 1px solid rgba(201,169,110,.15);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.montae-plan-price { font-size: 2rem; color: var(--clr-gold); font-family: var(--font-heading); }
+.montae-plan-price small { font-size: .95rem; color: var(--clr-muted); }
+.montae-plan-credits { font-size: .85rem; color: var(--clr-muted); }
+
+/* ── Tabs ────────────────────────────────────────────────────────────────── */
+.montae-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(201,169,110,.15);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+.montae-tab {
+  padding: .75rem 1.25rem;
+  color: var(--clr-muted);
+  text-decoration: none;
+  font-size: .875rem;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  white-space: nowrap;
+}
+.montae-tab:hover { color: var(--clr-gold); }
+.montae-tab--active { color: var(--clr-gold) !important; border-bottom-color: var(--clr-gold); }
+
+.montae-tab-content { animation: fadeIn .2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ── Subscription card ───────────────────────────────────────────────────── */
+.montae-subscription-card {
+  background: var(--clr-surface);
+  border: 1px solid rgba(201,169,110,.2);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+/* ── Badges ──────────────────────────────────────────────────────────────── */
+.montae-badge {
+  display: inline-block;
+  padding: .2rem .65rem;
+  border-radius: 99px;
+  font-size: .75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.montae-badge--active,
+.montae-badge--checked_in,
+.montae-badge--completed    { background: rgba(46,204,113,.15); color: var(--clr-success); }
+.montae-badge--confirmed    { background: rgba(201,169,110,.15); color: var(--clr-gold); }
+.montae-badge--paused       { background: rgba(243,156,18,.15);  color: var(--clr-warning); }
+.montae-badge--cancelled,
+.montae-badge--no_show,
+.montae-badge--expired      { background: rgba(192,57,43,.12);   color: var(--clr-danger); }
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+.montae-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+.montae-table th {
+  text-align: left;
+  padding: .6rem .75rem;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--clr-muted);
+  border-bottom: 1px solid rgba(201,169,110,.15);
+}
+.montae-table td {
+  padding: .65rem .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+
+/* ── Booking flow ────────────────────────────────────────────────────────── */
+.montae-book { max-width: 640px; }
+.montae-book-form { display: flex; flex-direction: column; }
+.montae-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: .5rem;
+  margin-bottom: .5rem;
+}
+.montae-slot {
+  background: var(--clr-surface-2);
+  border: 1px solid rgba(201,169,110,.2);
+  border-radius: var(--radius);
+  padding: .4rem;
+  text-align: center;
+  font-size: .8rem;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.montae-slot:hover  { border-color: var(--clr-gold); color: var(--clr-gold); }
+.montae-slot--selected { background: var(--clr-gold); color: var(--clr-bg); border-color: var(--clr-gold); }
+.montae-slot--taken { opacity: .35; cursor: not-allowed; }
+.montae-booking-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--clr-surface);
+  border-radius: var(--radius);
+}
+
+/* ── Client Calendar ─────────────────────────────────────────────────────── */
+.montae-calendar-wrap { position: relative; }
+.montae-cal-toolbar {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.montae-cal-title {
+  flex: 1;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  margin: 0;
+}
+.montae-cal-view-toggle { display: flex; gap: .4rem; margin-left: auto; }
+
+/* Month grid */
+.montae-cal-grid--month {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid rgba(201,169,110,.12);
+  border-left: 1px solid rgba(201,169,110,.12);
+}
+.montae-cal-dow {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--clr-muted);
+  padding: .4rem .5rem;
+  background: var(--clr-surface);
+  border-right: 1px solid rgba(201,169,110,.12);
+  border-bottom: 1px solid rgba(201,169,110,.12);
+  text-align: center;
+}
+.montae-cal-day {
+  min-height: 80px;
+  padding: .35rem .45rem;
+  background: var(--clr-surface);
+  border-right: 1px solid rgba(201,169,110,.08);
+  border-bottom: 1px solid rgba(201,169,110,.08);
+  cursor: pointer;
+  transition: background .15s;
+}
+.montae-cal-day:hover { background: var(--clr-surface-2); }
+.montae-cal-day--other-month .montae-cal-day-num { opacity: .3; }
+.montae-cal-day--today .montae-cal-day-num {
+  background: var(--clr-gold);
+  color: var(--clr-bg);
+  border-radius: 50%;
+  width: 22px; height: 22px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: .8rem;
+}
+.montae-cal-day-num { font-size: .8rem; color: var(--clr-muted); margin-bottom: .25rem; }
+.montae-cal-event {
+  font-size: .7rem;
+  padding: .15rem .35rem;
+  border-radius: 3px;
+  margin-bottom: .15rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.montae-cal-event--confirmed { background: rgba(201,169,110,.2); color: var(--clr-gold); }
+.montae-cal-event--checked_in,
+.montae-cal-event--completed  { background: rgba(46,204,113,.15); color: var(--clr-success); }
+.montae-cal-event--cancelled  { background: rgba(122,118,115,.1); color: var(--clr-muted); text-decoration: line-through; }
+
+/* Week strip */
+.montae-cal-grid--week {
+  display: grid;
+  grid-template-columns: 50px repeat(7, 1fr);
+  border-top: 1px solid rgba(201,169,110,.12);
+  border-left: 1px solid rgba(201,169,110,.12);
+}
+.montae-cal-week-header {
+  font-size: .75rem;
+  color: var(--clr-muted);
+  text-align: center;
+  padding: .4rem;
+  border-right: 1px solid rgba(201,169,110,.12);
+  border-bottom: 1px solid rgba(201,169,110,.12);
+}
+.montae-cal-time-cell {
+  font-size: .7rem;
+  color: var(--clr-muted);
+  padding: .35rem .4rem;
+  border-right: 1px solid rgba(201,169,110,.08);
+  border-bottom: 1px solid rgba(201,169,110,.08);
+  background: var(--clr-surface);
+  text-align: right;
+}
+.montae-cal-week-slot {
+  min-height: 36px;
+  border-right: 1px solid rgba(201,169,110,.08);
+  border-bottom: 1px solid rgba(201,169,110,.08);
+  background: var(--clr-surface);
+  position: relative;
+}
+
+/* Popover */
+.montae-cal-popover {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--clr-surface);
+  border: 1px solid rgba(201,169,110,.25);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  min-width: 280px;
+  box-shadow: var(--shadow);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.montae-popover-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: var(--clr-muted);
+  cursor: pointer;
+  padding: 0;
+}
+
+/* ── Autocomplete ────────────────────────────────────────────────────────── */
+.montae-autocomplete { position: relative; }
+.montae-autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  background: var(--clr-surface-2);
+  border: 1px solid rgba(201,169,110,.2);
+  border-radius: var(--radius);
+  list-style: none;
+  z-index: 200;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.montae-autocomplete-list li {
+  padding: .5rem .85rem;
+  cursor: pointer;
+  font-size: .875rem;
+}
+.montae-autocomplete-list li:hover { background: rgba(201,169,110,.08); color: var(--clr-gold); }
+
+/* ── Misc ────────────────────────────────────────────────────────────────── */
+.montae-welcome { color: var(--clr-muted); margin-bottom: 1.5rem; }
+.montae-muted   { color: var(--clr-muted); font-size: .9rem; }
+.montae-profile-card { max-width: 400px; display: flex; flex-direction: column; gap: .75rem; }
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .montae-hero h1 { font-size: 2.4rem; }
+  .montae-cal-grid--month { font-size: .7rem; }
+  .montae-cal-day { min-height: 52px; }
+  .montae-tabs { gap: 0; }
+  .montae-tab { padding: .6rem .85rem; font-size: .8rem; }
+}
