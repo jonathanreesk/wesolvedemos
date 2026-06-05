@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class MontaeKiosk(http.Controller):
 
-    @http.route('/kiosk', auth='public', website=True)
+    @http.route('/kiosk', auth='public', website=True, sitemap=False)
     def kiosk_home(self, **kwargs):
         return request.render('montae_studio.kiosk_home', {})
 

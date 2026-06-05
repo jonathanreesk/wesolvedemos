@@ -12,14 +12,14 @@ class MontaePortal(http.Controller):
 
     # ── Home / Landing ────────────────────────────────────────────────────────
 
-    @http.route('/studio', auth='public', website=True)
+    @http.route('/studio', auth='public', website=True, sitemap=True)
     def studio_home(self, **kwargs):
         plans = request.env['montae.plan'].sudo().search([('active', '=', True)])
         return request.render('montae_studio.portal_home', {'plans': plans})
 
     # ── Booking flow ──────────────────────────────────────────────────────────
 
-    @http.route('/studio/book', auth='user', website=True)
+    @http.route('/studio/book', auth='user', website=True, sitemap=False)
     def studio_book(self, date=None, **kwargs):
         resources = request.env['montae.resource'].sudo().search([('active', '=', True)])
         return request.render('montae_studio.portal_book', {
@@ -80,7 +80,7 @@ class MontaePortal(http.Controller):
 
     # ── Account ───────────────────────────────────────────────────────────────
 
-    @http.route('/studio/account', auth='user', website=True)
+    @http.route('/studio/account', auth='user', website=True, sitemap=False)
     def studio_account(self, tab='subscription', **kwargs):
         partner = request.env.user.partner_id
         subscription = partner.montae_active_subscription_id

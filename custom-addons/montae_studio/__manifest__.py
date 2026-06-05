@@ -4,7 +4,7 @@
     'category': 'Services/Studio',
     'summary': 'Membership, booking, kiosk and portal for Montae wellness studio',
     'author': 'WeSolve Digital',
-    'depends': ['base', 'portal', 'mail', 'product'],
+    'depends': ['base', 'portal', 'website', 'mail', 'product'],
     'data': [
         'security/montae_security.xml',
         'security/ir.model.access.csv',
