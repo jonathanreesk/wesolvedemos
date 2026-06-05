@@ -7,7 +7,7 @@
             <t t-set="no_footer" t-value="True"/>
             <t t-set="head_studio">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
-                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.383.0/umd/lucide.min.js"></script>
             </t>
             <t t-set="additional_title">Montae Studio</t>
             <t t-set="head" t-value="head_studio"/>
@@ -39,11 +39,10 @@
                             <div class="montae-plan-card">
                                 <h3 t-esc="plan.name"/>
                                 <p class="montae-plan-price">
-                                    $<span t-esc="int(plan.price)"/><small>/<t t-esc="plan.billing_period"/></small>
+                                    $<span t-esc="int(plan.price)"/><small>/<t t-esc="plan.billing_cycle"/></small>
                                 </p>
-                                <p t-esc="plan.description"/>
-                                <p class="montae-plan-credits" t-if="plan.session_credits > 0">
-                                    <t t-esc="plan.session_credits"/> sessions/month
+                                <p class="montae-plan-credits" t-if="plan.recovery_session_credits > 0">
+                                    <t t-esc="plan.recovery_session_credits"/> sessions/month
                                 </p>
                                 <p class="montae-plan-credits" t-else="">Unlimited sessions</p>
                                 <button class="montae-btn montae-btn--primary js-subscribe"
@@ -66,7 +65,7 @@
             <t t-set="no_footer" t-value="True"/>
             <t t-set="head_studio">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
-                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.383.0/umd/lucide.min.js"></script>
             </t>
             <t t-set="additional_title">Book a Session — Montae Studio</t>
             <t t-set="head" t-value="head_studio"/>
@@ -129,7 +128,7 @@
             <t t-set="no_footer" t-value="True"/>
             <t t-set="head_studio">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
-                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.383.0/umd/lucide.min.js"></script>
             </t>
             <t t-set="additional_title">My Account — Montae Studio</t>
             <t t-set="head" t-value="head_studio"/>
@@ -175,9 +174,9 @@
                         <t t-if="subscription">
                             <div class="montae-subscription-card">
                                 <h2 t-esc="subscription.plan_id.name"/>
-                                <span t-attf-class="montae-badge montae-badge--#{subscription.state}"
-                                      t-esc="subscription.state.title()"/>
-                                <p>Credits remaining: <strong t-esc="subscription.credit_balance"/></p>
+                                <span t-attf-class="montae-badge montae-badge--#{subscription.status}"
+                                      t-esc="subscription.status.title()"/>
+                                <p>Credits remaining: <strong t-esc="subscription.recovery_credits"/></p>
                                 <p>Next billing: <t t-esc="subscription.next_billing_date"/></p>
                             </div>
                         </t>
@@ -187,7 +186,7 @@
                                 <t t-foreach="plans" t-as="plan">
                                     <div class="montae-plan-card">
                                         <h3 t-esc="plan.name"/>
-                                        <p class="montae-plan-price">$<t t-esc="int(plan.price)"/>/<t t-esc="plan.billing_period"/></p>
+                                        <p class="montae-plan-price">$<t t-esc="int(plan.price)"/>/<t t-esc="plan.billing_cycle"/></p>
                                         <button class="montae-btn montae-btn--primary js-subscribe"
                                                 t-att-data-plan-id="plan.id">Subscribe</button>
                                     </div>
@@ -236,7 +235,6 @@
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Session</th>
                                     <th>Resource</th>
                                     <th>Status</th>
                                 </tr>
@@ -244,12 +242,11 @@
                             <tbody>
                                 <t t-foreach="bookings" t-as="b">
                                     <tr>
-                                        <td t-esc="b.datetime_start.strftime('%d %b %Y %H:%M') if b.datetime_start else ''"/>
-                                        <td t-esc="b.session_type"/>
+                                        <td t-esc="b.start_datetime.strftime('%d %b %Y %H:%M') if b.start_datetime else ''"/>
                                         <td t-esc="b.resource_id.name"/>
                                         <td>
-                                            <span t-attf-class="montae-badge montae-badge--#{b.state}"
-                                                  t-esc="b.state.replace('_',' ').title()"/>
+                                            <span t-attf-class="montae-badge montae-badge--#{b.status}"
+                                                  t-esc="b.status.replace('_',' ').title()"/>
                                         </td>
                                     </tr>
                                 </t>

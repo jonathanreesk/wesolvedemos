@@ -6,7 +6,7 @@
             <t t-set="no_footer" t-value="True"/>
             <t t-set="head_kiosk">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_kiosk.css"/>
-                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.383.0/umd/lucide.min.js"></script>
             </t>
             <t t-set="additional_title">Check In — Montae Studio</t>
             <t t-set="head" t-value="head_kiosk"/>

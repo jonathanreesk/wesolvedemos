@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="action_montae_staff_calendar_url" model="ir.actions.act_url">
+        <field name="name">Staff Calendar</field>
+        <field name="url">/studio/staff/calendar</field>
+        <field name="target">self</field>
+    </record>
+
     <menuitem id="menu_montae_root" name="Montae Studio" sequence="90"/>
 
     <menuitem id="menu_montae_bookings" name="Bookings"
@@ -26,10 +32,4 @@
               parent="menu_montae_root"
               sequence="50"
               action="action_montae_staff_calendar_url"/>
-
-    <record id="action_montae_staff_calendar_url" model="ir.actions.act_url">
-        <field name="name">Staff Calendar</field>
-        <field name="url">/studio/staff/calendar</field>
-        <field name="target">self</field>
-    </record>
 </odoo>

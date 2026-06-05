@@ -7,7 +7,7 @@
             <t t-set="head_staff">
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_portal.css"/>
                 <link rel="stylesheet" href="/montae_studio/static/src/css/montae_staff_calendar.css"/>
-                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.383.0/umd/lucide.min.js"></script>
             </t>
             <t t-set="additional_title">Staff Calendar — Montae Studio</t>
             <t t-set="head" t-value="head_staff"/>
@@ -118,7 +118,7 @@
                         <t t-foreach="resources" t-as="res">
                         {
                             id: <t t-out="res.id"/>,
-                            name: "<t t-out="res.name.replace('\"', '&quot;')"/>",
+                            name: "<t t-out="res.name"/>",
                             open_time: <t t-out="res.open_time"/>,
                             close_time: <t t-out="res.close_time"/>
                         }<t t-if="not res_last">,</t>
