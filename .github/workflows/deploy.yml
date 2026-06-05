@@ -15,23 +15,17 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          request_pty: true
           script: |
             set -e
-            # Clone to home dir (no sudo needed)
+            # Clone to home dir — administrator owns this, no sudo needed
             rm -rf ~/montae_studio_tmp
             git clone https://github.com/jonathanreesk/wesolvedemos.git ~/montae_studio_tmp
-            # Copy module files (sudo needed for /odoo19)
-            sudo -n rm -rf /odoo19/custom-addons/montae_studio
-            sudo -n cp -r ~/montae_studio_tmp/custom-addons/montae_studio /odoo19/custom-addons/
-            sudo -n chown -R odoo:odoo /odoo19/custom-addons/montae_studio
+            # File copy — administrator owns /odoo19/custom-addons after one-time chown
+            rm -rf /odoo19/custom-addons/montae_studio
+            cp -r ~/montae_studio_tmp/custom-addons/montae_studio /odoo19/custom-addons/
             rm -rf ~/montae_studio_tmp
-            echo "Code updated — upgrading montae_studio module..."
-            sudo -n systemctl stop odoo19
-            sudo -n -u odoo /odoo19/odoo-server/env/bin/python3 /odoo19/odoo-server/odoo-bin \
-              -c /etc/odoo19.conf \
-              -d Wesolvedemo \
-              -u montae_studio \
-              --stop-after-init \
-              --no-http
-            sudo -n systemctl start odoo19
+            echo "Code updated — running Odoo upgrade..."
+            # Single sudo call to the deploy helper script
+            sudo -n /usr/local/bin/odoo-deploy
             echo "Deploy complete"
