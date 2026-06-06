@@ -39,7 +39,7 @@
                             <div class="montae-plan-card">
                                 <h3 t-esc="plan.name"/>
                                 <p class="montae-plan-price">
-                                    $<span t-esc="int(plan.price)"/><small>/<t t-esc="plan.billing_cycle"/></small>
+                                    $<span t-esc="int(plan.price)"/><small>/<t t-esc="plan.billing_period"/></small>
                                 </p>
                                 <p class="montae-plan-credits" t-if="plan.recovery_session_credits > 0">
                                     <t t-esc="plan.recovery_session_credits"/> sessions/month
@@ -186,7 +186,7 @@
                                 <t t-foreach="plans" t-as="plan">
                                     <div class="montae-plan-card">
                                         <h3 t-esc="plan.name"/>
-                                        <p class="montae-plan-price">$<t t-esc="int(plan.price)"/>/<t t-esc="plan.billing_cycle"/></p>
+                                        <p class="montae-plan-price">$<t t-esc="int(plan.price)"/>/<t t-esc="plan.billing_period"/></p>
                                         <button class="montae-btn montae-btn--primary js-subscribe"
                                                 t-att-data-plan-id="plan.id">Subscribe</button>
                                     </div>
