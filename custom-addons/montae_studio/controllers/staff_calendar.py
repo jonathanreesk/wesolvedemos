@@ -40,8 +40,8 @@ class MontaeStaffCalendar(http.Controller):
         day_start = datetime.combine(day, datetime.min.time())
         day_end = day_start + timedelta(days=1)
         bookings = request.env['montae.booking'].sudo().search([
-            ('start_datetime', '>=', day_start),
-            ('start_datetime', '<', day_end),
+            ('datetime_start', '>=', day_start),
+            ('datetime_start', '<', day_end),
         ])
         result = []
         for b in bookings:
@@ -49,11 +49,11 @@ class MontaeStaffCalendar(http.Controller):
                 'id': b.id,
                 'client': b.partner_id.name,
                 'client_id': b.partner_id.id,
-                'session_type': b.resource_id.name,
+                'session_type': b.session_type,
                 'resource_id': b.resource_id.id,
-                'start': b.start_datetime.isoformat(),
-                'end': b.end_datetime.isoformat(),
-                'state': b.status,
+                'start': b.datetime_start.isoformat(),
+                'end': b.datetime_end.isoformat(),
+                'state': b.state,
                 'notes': b.notes or '',
             })
         return result
@@ -67,13 +67,14 @@ class MontaeStaffCalendar(http.Controller):
         partner = request.env['res.partner'].sudo().browse(int(partner_id))
         if not partner.exists():
             return {'error': 'Client not found'}
-        sub = partner.montae_subscription_id
+        sub = partner.montae_subscription_ids.filtered(lambda s: s.state == 'active')[:1]
         booking = request.env['montae.booking'].sudo().create({
             'partner_id': partner.id,
             'subscription_id': sub.id if sub else False,
             'resource_id': int(resource_id),
-            'start_datetime': dt_start,
-            'end_datetime': dt_end,
+            'session_type': session_type,
+            'datetime_start': dt_start,
+            'datetime_end': dt_end,
             'notes': notes,
         })
         return {
@@ -89,8 +90,8 @@ class MontaeStaffCalendar(http.Controller):
         booking = request.env['montae.booking'].sudo().browse(booking_id)
         if not booking.exists():
             return {'error': 'Not found'}
-        if booking.status != 'confirmed':
-            return {'error': f'Cannot check in — booking is {booking.status}'}
+        if booking.state != 'confirmed':
+            return {'error': f'Cannot check in — booking is {booking.state}'}
         booking.action_check_in()
         return {'status': 'checked_in'}
 
@@ -101,8 +102,8 @@ class MontaeStaffCalendar(http.Controller):
         booking = request.env['montae.booking'].sudo().browse(booking_id)
         if not booking.exists():
             return {'error': 'Not found'}
-        if booking.status not in ('confirmed', 'checked_in'):
-            return {'error': f'Cannot cancel — booking is {booking.status}'}
+        if booking.state not in ('confirmed', 'checked_in'):
+            return {'error': f'Cannot cancel — booking is {booking.state}'}
         booking.action_cancel()
         return {'status': 'cancelled'}
 
