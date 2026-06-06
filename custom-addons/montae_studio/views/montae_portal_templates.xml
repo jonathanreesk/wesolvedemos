@@ -41,8 +41,8 @@
                                 <p class="montae-plan-price">
                                     $<span t-esc="int(plan.price)"/><small>/<t t-esc="plan.billing_period"/></small>
                                 </p>
-                                <p class="montae-plan-credits" t-if="plan.recovery_session_credits > 0">
-                                    <t t-esc="plan.recovery_session_credits"/> sessions/month
+                                <p class="montae-plan-credits" t-if="plan.session_credits > 0">
+                                    <t t-esc="plan.session_credits"/> sessions/month
                                 </p>
                                 <p class="montae-plan-credits" t-else="">Unlimited sessions</p>
                                 <button class="montae-btn montae-btn--primary js-subscribe"
@@ -174,9 +174,9 @@
                         <t t-if="subscription">
                             <div class="montae-subscription-card">
                                 <h2 t-esc="subscription.plan_id.name"/>
-                                <span t-attf-class="montae-badge montae-badge--#{subscription.status}"
-                                      t-esc="subscription.status.title()"/>
-                                <p>Credits remaining: <strong t-esc="subscription.recovery_credits"/></p>
+                                <span t-attf-class="montae-badge montae-badge--#{subscription.state}"
+                                      t-esc="subscription.state.title()"/>
+                                <p>Credits remaining: <strong t-esc="subscription.credit_balance"/></p>
                                 <p>Next billing: <t t-esc="subscription.next_billing_date"/></p>
                             </div>
                         </t>
@@ -242,11 +242,11 @@
                             <tbody>
                                 <t t-foreach="bookings" t-as="b">
                                     <tr>
-                                        <td t-esc="b.start_datetime.strftime('%d %b %Y %H:%M') if b.start_datetime else ''"/>
+                                        <td t-esc="b.datetime_start.strftime('%d %b %Y %H:%M') if b.datetime_start else ''"/>
                                         <td t-esc="b.resource_id.name"/>
                                         <td>
-                                            <span t-attf-class="montae-badge montae-badge--#{b.status}"
-                                                  t-esc="b.status.replace('_',' ').title()"/>
+                                            <span t-attf-class="montae-badge montae-badge--#{b.state}"
+                                                  t-esc="b.state.replace('_',' ').title()"/>
                                         </td>
                                     </tr>
                                 </t>
